@@ -53,3 +53,19 @@ html, body {
     text-decoration: none;
     cursor: pointer;
 }
+
+
+.employee-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+.employee-card img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+}

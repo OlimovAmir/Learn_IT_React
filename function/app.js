@@ -1,3 +1,5 @@
+// Импортируем массив сотрудников из файла employees.js
+import employees from './dataBase/persons.js';
 
 function greetUser() {
     // Запрос имени у пользователя
@@ -153,3 +155,87 @@ function submitFormV4() {
         document.getElementById("modal").style.display = "block";
     }
 }
+
+// Используем массив сотрудников
+console.log(employees);
+
+// Например, выведем имена всех сотрудников
+employees.forEach(employee => {
+    console.log(employee.name);
+});
+
+// Фильтруем сотрудников, у которых зарплата больше 56000
+const highSalaryEmployees = employees.filter(employee => employee.salary > 56000);
+
+// Выводим этих сотрудников в консоль
+console.log("Сотрудники с зарплатой больше 56000:");
+highSalaryEmployees.forEach(employee => {
+    console.log(`Name: ${employee.name}, Position: ${employee.position}, Salary: ${employee.salary}`);
+});
+
+
+
+// Создаем новый массив сотрудников с обновленными зарплатами
+const updatedEmployees = employees.map(employee => {
+    if (employee.salary < 56000) {
+        // Если зарплата сотрудника меньше 56000, увеличиваем ее на 10000
+        return {
+            ...employee,
+            salary: employee.salary + 10000
+        };
+    }
+    // Возвращаем сотрудника без изменений, если его зарплата больше или равна 56000
+    return employee;
+});
+
+// Выводим обновленный список сотрудников в консоль
+console.log("Обновленный список сотрудников:");
+updatedEmployees.forEach(employee => {
+    console.log(`Name: ${employee.name}, Position: ${employee.position}, Salary: ${employee.salary}`);
+});
+
+
+// Создаем новый массив сотрудников с обновленными зарплатами
+const updatedEmployees2 = employees.map(employee => {
+    if (employee.salary < 56000) {
+        // Если зарплата сотрудника меньше 56000, увеличиваем ее на 10000
+        return {
+            ...employee,
+            salary: employee.salary + 10000
+        };
+    }
+    // Возвращаем сотрудника без изменений, если его зарплата больше или равна 56000
+    return employee;
+});
+
+// Фильтруем сотрудников, которым была увеличена зарплата
+const employeesWithIncreasedSalary = updatedEmployees2.filter(employee => employee.salary > employees.find(e => e.id === employee.id).salary);
+
+// Выводим список сотрудников, которым увеличили зарплату
+console.log("Сотрудники, которым увеличили зарплату:");
+employeesWithIncreasedSalary.forEach(employee => {
+    console.log(`Name: ${employee.name}, Position: ${employee.position}, New Salary: ${employee.salary}`);
+});
+
+//  карточка сотрудников
+const employeeList = document.getElementById('employee-list');
+
+        employees.forEach(employee => {
+            const employeeCard = document.createElement('div');
+            employeeCard.className = 'employee-card';
+            
+            const employeePhoto = document.createElement('img');
+            employeePhoto.src = employee.photo;
+            employeePhoto.alt = `${employee.name}'s photo`;
+
+            const employeeInfo = document.createElement('div');
+            employeeInfo.innerHTML = `
+                <h2>${employee.name}</h2>
+                <p>Position: ${employee.position}</p>
+                <p>Salary: $${employee.salary}</p>
+            `;
+
+            employeeCard.appendChild(employeePhoto);
+            employeeCard.appendChild(employeeInfo);
+            employeeList.appendChild(employeeCard);
+        });
