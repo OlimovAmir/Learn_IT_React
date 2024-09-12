@@ -1,51 +1,98 @@
+let person = {
+    firstName: 'Amir',
+    age: 25,
+    speed: 300,
+}
+let employee = {
+    salary: 5000,
+}
+console.log(person)
+
+// Устанавливаем employee как прототип для person
+Object.setPrototypeOf( employee, person);
+
+// Теперь person наследует свойства от employee
+console.log(employee.age); // выдал undefined
 
 
-let transport = {
-    speed: 250,
-    model: "bmw",
-    dataOut: 2022,
+
+let employee2 = Object.create(person, {
+    firstName: { value: 'Roy', enumerable: true },
+    age: { value: 35, enumerable: true }
+});
+
+
+
+console.log(employee2);
+
+console.log(Object.getPrototypeOf(employee2));
+
+
+
+
+function  Person(firstName, age) {
+    this.firstName = firstName;
+    this.age = age;
 }
 
+let person1 = new Person('Rinat', 39);
+console.log(person1.constructor);  // Выведет: ƒ Person(firstName, age)
 
-console.log(transport.model)
-console.log(transport);
+console.log(person1.constructor === Person);  // true
 
-let opel = {
-    color: "grey",
-    motor: 4,
+
+
+
+//Object.assign(target, ...sources);
+let target = {};
+let source1 = { a: 1 };
+let source2 = { b: 2, c: 3 };
+
+// Копируем свойства из source1 и source2 в target
+Object.assign(target, source1, source2);
+
+console.log(target);  // Выведет: { a: 1, b: 2, c: 3 }
+
+let obj1 = { name: 'Amir' };
+let obj2 = { age: 25 };
+let obj3 = { city: 'Dushanbe' };
+
+let result = Object.assign({}, obj1, obj2, obj3);
+
+console.log(result);  // Выведет: { name: 'Amir', age: 25, city: 'Dushanbe' }
+
+let original = { name: 'Amir', age: 25 };
+let clone = Object.assign({}, original);
+
+console.log(clone);  // Выведет: { name: 'Amir', age: 25 }
+
+
+let person3 = {
+    greet() {
+        console.log(`Hello, my name is ${this.name}`);
+    },
+
+    fight(){
+        console.log(`bah bah bah`);
+    }
+};
+
+let john = Object.create(person3);
+john.name = 'John';
+john.greet();  // Выведет: Hello, my name is John
+
+john.fight();
+
+
+
+ function calculattor(a, b) {
+    
+    var result = 0; 
+    result =  a + b
+
+     return result;
 }
 
-console.log(opel.motor);
+calculattor(5, 25);
 
-
-Object.setPrototypeOf(opel, transport);
-
-console.log(opel.model);
-
-
-function Person(fistName, age){
-    this.fistName = fistName,
-    this.age = age
-}
-
-
-function Car(color, age){
-    this.color = color,
-    this.age = age
-}
-
-let RoyJon = new Person("RoyJon", 55);
-console.log(RoyJon);
-console.log(RoyJon.constructor === Person);
-console.log(RoyJon.constructor === Car);
-
-function card() {
-    let number1 = 40
-    let number2 = 60
-    console.log(number1 + number2)
-    return(number1 + number2)
-}
-
-card()
-let result = card()
-console.log(result)
+console.log(result);
